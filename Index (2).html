@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Reyes | ING. Redes & Full Stack Developer Portfolio</title>
+    <meta name="description" content="Portafolio profesional de Feliz Reyes, Ingeniero en Redes y Desarrollo Web.">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Devicon Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #050811;
+            --bg-secondary: #0d1322;
+            --card-bg: rgba(13, 19, 34, 0.85);
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            --neon-blue: #00f0ff;
+            --neon-green: #00ff66;
+            --neon-purple: #9d00ff;
+            --neon-yellow: #ffee00;
+            --border-glow: rgba(0, 240, 255, 0.3);
+            --shadow-glow: 0 0 20px rgba(0, 240, 255, 0.2);
+            --nav-bg: rgba(5, 8, 17, 0.9);
+        }
+
+        [data-bs-theme="light"] {
+            --bg-primary: #f4f7fb;
+            --bg-secondary: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --neon-blue: #0284c7;
+            --neon-green: #16a34a;
+            --neon-purple: #7c3aed;
+            --neon-yellow: #ca8a04;
+            --border-glow: rgba(2, 132, 199, 0.4);
+            --shadow-glow: 0 10px 25px rgba(2, 132, 199, 0.15);
+            --nav-bg: rgba(244, 247, 251, 0.95);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        h1, h2, h3, h4, .cyber-font {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        code, pre, .tech-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Canvas Matrix */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.35;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-blue);
+            border-radius: 4px;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glow);
+            transition: all 0.3s ease;
+        }
+        .navbar-brand {
+            font-weight: 900;
+            color: var(--neon-blue) !important;
+            text-shadow: 0 0 10px var(--border-glow);
+        }
+        .nav-link {
+            color: var(--text-main) !important;
+            font-weight: 500;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--neon-blue) !important;
+            transform: translateY(-2px);
+        }
+
+        /* Neon Glow Cards */
+        .cyber-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            box-shadow: var(--shadow-glow);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cyber-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 25px var(--border-glow);
+        }
+
+        /* Section Title */
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+            color: var(--text-main);
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+        }
+
+        /* Hero Image */
+        .hero-img-container {
+            position: relative;
+            display: inline-block;
+        }
+        .hero-img {
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--neon-blue);
+            box-shadow: 0 0 30px var(--neon-blue);
+        }
+
+        /* Badges & Buttons */
+        .badge-tech {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--neon-blue);
+            border: 1px solid var(--border-glow);
+            padding: 8px 16px;
+            font-size: 0.95rem;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .badge-tech:hover {
+            background: var(--neon-blue);
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        .btn-cyber {
+            background: linear-gradient(45deg, #1e88e5, #00f0ff);
+            color: #fff;
+            border: none;
+            font-weight: 700;
+            padding: 12px 30px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+        .btn-cyber:hover {
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 240, 255, 0.6);
+        }
+
+        /* Video Container 16:9 */
+        .ratio-16x9 {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-glow);
+        }
+
+        /* Filter Buttons */
+        .btn-filter {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 6px 20px;
+            margin: 0 4px 10px 4px;
+            transition: all 0.3s ease;
+        }
+        .btn-filter.active, .btn-filter:hover {
+            background: var(--neon-blue);
+            color: #000 !important;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--nav-bg);
+            border-top: 1px solid var(--border-glow);
+        }
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+            color: var(--neon-blue);
+            border: 1px solid var(--border-glow);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        .social-link:hover {
+            background: var(--neon-blue);
+            color: #000;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas de Fondo Matrix Translúcido -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand cyber-font" href="#">
+                <i class="fa-solid fa-network-wired me-2"></i>FELIZ REYES
+            </a>
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fa-solid fa-bars fa-lg" style="color: var(--neon-blue);"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#hero">🏠 Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#stack">🛠️ Stack</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proyectos">🌐 Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#experiencia">🏢 Experiencia</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#videos">🎥 Videos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">📧 Contacto</a></li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <button class="btn btn-outline-info rounded-circle p-2" id="theme-toggle" title="Cambiar Tema">
+                            <i class="fa-solid fa-moon" id="theme-icon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SECCIÓN HERO -->
+    <section id="hero" class="py-5 my-4">
+        <div class="container">
+            <div class="row align-items-center gy-4">
+                <div class="col-lg-4 text-center">
+                    <div class="hero-img-container">
+                        <img src="https://scontent.fhex4-2.fna.fbcdn.net/v/t39.30808-6/472133202_964728425757760_1579471068606478998_n.jpg?stp=dst-jpg_tt6&cstp=mx828x1025&ctp=s828x1025&_nc_cat=104&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=1f4PdvpsOTcQ7kNvwFX03xh&_nc_oc=AdpgPNe9Ea37FIjcJNofC3PauyE1-5v7_ouHRiocMHIqdbDneXEYPFBRH55A1KtsGOzHjmlzAFGKRB0lnt8z5hHI&_nc_zt=23&_nc_ht=scontent.fhex4-2.fna&_nc_gid=4Uf0xC94U_Z3Es7Ds0vFCw&_nc_ss=7b2a8&oh=00_AQR7Abryr3znFHbBpXKntMerwpdHhJofaLQOLu3QYINU3g&oe=6AF2B65E" alt="Feliz Reyes" class="hero-img">
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="p-3">
+                        <span class="badge bg-primary bg-opacity-20 text-info mb-2 tech-font">⚡ INGENIERO EN REDES & DESARROLLADOR</span>
+                        <h1 class="display-4 fw-bold mb-3 cyber-font">Feliz Reyes</h1>
+                        <p class="lead mb-4 text-secondary">
+                            Ingeniero en Redes enfocado en infraestructura, arquitectura cloud y desarrollo web moderno. Apasionado por la creación de soluciones digitales minimalistas, responsivas, optimizadas para SEO y fundamentadas en las mejores prácticas de software.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="#contacto" class="btn btn-cyber"><i class="fa-solid fa-paper-plane me-2"></i>Contáctame</a>
+                            <a href="#proyectos" class="btn btn-outline-info rounded-pill px-4 align-self-center"><i class="fa-solid fa-code me-2"></i>Ver Portafolio</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN STACK TECNOLÓGICO -->
+    <section id="stack" class="py-5 my-3">
+        <div class="container text-center">
+            <h2 class="section-title cyber-font">🛠️ Stack Tecnológico</h2>
+            <p class="text-secondary mb-5">Herramientas y tecnologías que utilizo para construir soluciones de alto impacto.</p>
+            
+            <div class="row g-4 justify-content-center">
+                <!-- Frontend -->
+                <div class="col-12">
+                    <h4 class="text-start mb-3 text-info tech-font"><i class="fa-solid fa-desktop me-2"></i>Frontend & Interfaces</h4>
+                    <div class="d-flex flex-wrap gap-3 justify-content-start">
+                        <span class="badge-tech"><i class="devicon-html5-plain colored"></i> HTML5</span>
+                        <span class="badge-tech"><i class="devicon-css3-plain colored"></i> CSS3</span>
+                        <span class="badge-tech"><i class="devicon-javascript-plain colored"></i> JavaScript</span>
+                        <span class="badge-tech"><i class="devicon-bootstrap-plain colored"></i> Bootstrap 5</span>
+                        <span class="badge-tech"><i class="devicon-react-original colored"></i> React</span>
+                    </div>
+                </div>
+
+                <!-- Networking & Infraestructura -->
+                <div class="col-12 mt-4">
+                    <h4 class="text-start mb-3 text-info tech-font"><i class="fa-solid fa-network-wired me-2"></i>Redes & Backend</h4>
+                    <div class="d-flex flex-wrap gap-3 justify-content-start">
+                        <span class="badge-tech"><i class="devicon-csharp-plain colored"></i> C# / .NET</span>
+                        <span class="badge-tech"><i class="devicon-python-plain colored"></i> Python</span>
+                        <span class="badge-tech"><i class="devicon-microsoftsqlserver-plain colored"></i> SQL Server</span>
+                        <span class="badge-tech"><i class="devicon-mysql-plain colored"></i> MySQL</span>
+                        <span class="badge-tech"><i class="fa-solid fa-server text-warning"></i> Cisco Routing & Switching</span>
+                    </div>
+                </div>
+
+                <!-- Data & Tools -->
+                <div class="col-12 mt-4">
+                    <h4 class="text-start mb-3 text-info tech-font"><i class="fa-solid fa-chart-line me-2"></i>Datos & Automatización</h4>
+                    <div class="d-flex flex-wrap gap-3 justify-content-start">
+                        <span class="badge-tech"><i class="devicon-git-plain colored"></i> Git & GitHub</span>
+                        <span class="badge-tech"><i class="devicon-pandas-original colored"></i> Pandas</span>
+                        <span class="badge-tech"><i class="fa-solid fa-database text-info"></i> Power BI</span>
+                        <span class="badge-tech"><i class="fa-solid fa-cloud text-primary"></i> Cloud Infra</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN PROYECTOS -->
+    <section id="proyectos" class="py-5 my-3">
+        <div class="container text-center">
+            <h2 class="section-title cyber-font">🌐 Proyectos Destacados</h2>
+            <p class="text-secondary mb-4">Selección de trabajos web, aplicaciones móviles y diseño de soluciones.</p>
+
+            <!-- Filtros -->
+            <div class="mb-4">
+                <button class="btn-filter active" onclick="filterProjects('all')">Todos</button>
+                <button class="btn-filter" onclick="filterProjects('web')">Web</button>
+                <button class="btn-filter" onclick="filterProjects('app')">Apps</button>
+                <button class="btn-filter" onclick="filterProjects('diseno')">Diseño</button>
+            </div>
+
+            <div class="row g-4 text-start">
+                <!-- Web Projects -->
+                <div class="col-md-4 project-item web">
+                    <div class="cyber-card card h-100 border-0">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfL-Leyd1Rp13h1HyEApEY-vFUt54iFN6Ycw&s" class="card-img-top" alt="Web 1" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-info">Portal Web Empresarial</h5>
+                            <p class="card-text text-secondary">Plataforma responsive optimizada con diseño cibernético y SEO de alto nivel.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 project-item web">
+                    <div class="cyber-card card h-100 border-0">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPLsf6mCKkQ4Ns2IOGdnTL6oDQR4KNIAdUbw&s" class="card-img-top" alt="Web 2" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-info">Dashboard de Monitoreo</h5>
+                            <p class="card-text text-secondary">Panel interactivo para el control y gestión de redes corporativas en tiempo real.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 project-item web">
+                    <div class="cyber-card card h-100 border-0">
+                        <img src="https://i.ytimg.com/vi/ukiGFmZ32YA/maxresdefault.jpg" class="card-img-top" alt="Web 3" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-info">Sistema de Gestión Cloud</h5>
+                            <p class="card-text text-secondary">Aplicación web para administración de servicios e infraestructura alojada.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- App Projects -->
+                <div class="col-md-4 project-item app">
+                    <div class="cyber-card card h-100 border-0">
+                        <img src="https://atomicwallet.io/images/wallets/cryptocurrency_bitcoin_wallet.webp" class="card-img-top" alt="App 1" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-info">Crypto Wallet App</h5>
+                            <p class="card-text text-secondary">Billetera digital segura para gestión de criptoactivos con UI minimalista.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 project-item app">
+                    <div class="cyber-card card h-100 border-0">
+                        <img src="https://images01.nicepagecdn.com/page/12/93/website-template-preview-1293170.jpg" class="card-img-top" alt="App 2" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-info">Mobile Task Manager</h5>
+                            <p class="card-text text-secondary">App multiplataforma desarrollada para seguimiento y priorización de proyectos.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 project-item app">
+                    <div class="cyber-card card h-100 border-0">
+                        <img src="https://www.mitec.cz/wp/wp-content/uploads/2025/06/TMX_001.png" class="card-img-top" alt="App 3" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-info">Network Analyzer Tool</h5>
+                            <p class="card-text text-secondary">Herramienta móvil de diagnóstico de red y medición de latencias.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design Projects -->
+                <div class="col-md-4 project-item diseno">
+                    <div class="cyber-card card h-100 border-0">
+                        <img src="https://as2.ftcdn.net/jpg/02/75/03/05/1000_F_275030527_PNJeGbT0vASVdu5TXWLvqiIbGAwYUNFj.jpg" class="card-img-top" alt="Diseño 1" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-info">UI/UX Cyberpunk Concept</h5>
+                            <p class="card-text text-secondary">Prototipado e interfaz visual futurista orientada a plataformas gaming.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 project-item diseno">
+                    <div class="cyber-card card h-100 border-0">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTooJuOvyQnfadbRxnHhJ-UMB-7cxXaNXPmng&s" class="card-img-top" alt="Diseño 2" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-info">Branding Tecnológico</h5>
+                            <p class="card-text text-secondary">Identidad visual y sistema de diseño para empresas de telecomunicaciones.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 project-item diseno">
+                    <div class="cyber-card card h-100 border-0">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCK2HLpYJaBkuJKUqtmlSzNc9V7Ziw8U3wew&s" class="card-img-top" alt="Diseño 3" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-info">Rediseño Portal Corporativo</h5>
+                            <p class="card-text text-secondary">Maquetación moderna enfocada en la experiencia de usuario e intuitividad.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN EXPERIENCIA LABORAL -->
+    <section id="experiencia" class="py-5 my-3">
+        <div class="container text-center">
+            <h2 class="section-title cyber-font">🏢 Experiencia Laboral</h2>
+            <p class="text-secondary mb-5">Trayectoria profesional en gestión de infraestructuras y desarrollo.</p>
+
+            <div class="row g-4 justify-content-center text-start">
+                <div class="col-md-4">
+                    <div class="cyber-card card h-100 p-4 border-0">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fa-solid fa-network-wired fa-2x text-info me-3"></i>
+                            <div>
+                                <h5 class="fw-bold mb-0">Ingeniero de Redes</h5>
+                                <small class="text-warning">TechNet Solutions | 2022 - Presente</small>
+                            </div>
+                        </div>
+                        <p class="card-text text-secondary">Administración de topologías de red, configuración de enrutadores, firewalls y optimización de conectividad segura.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cyber-card card h-100 p-4 border-0">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fa-solid fa-code fa-2x text-info me-3"></i>
+                            <div>
+                                <h5 class="fw-bold mb-0">Desarrollador Web</h5>
+                                <small class="text-warning">Global Software | 2020 - 2022</small>
+                            </div>
+                        </div>
+                        <p class="card-text text-secondary">Construcción de interfaces web responsivas, integración de APIs RESTful y optimización de rendimiento frontend.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cyber-card card h-100 p-4 border-0">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fa-solid fa-headset fa-2x text-info me-3"></i>
+                            <div>
+                                <h5 class="fw-bold mb-0">Soporte Técnico Especializado</h5>
+                                <small class="text-warning">Telecom Corp | 2018 - 2020</small>
+                            </div>
+                        </div>
+                        <p class="card-text text-secondary">Resolución de incidencias en sistemas, mantenimiento preventivo de hardware de red y asistencia técnica empresarial.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN VIDEOS DESTACADOS -->
+    <section id="videos" class="py-5 my-3">
+        <div class="container text-center">
+            <h2 class="section-title cyber-font">🎥 Videos & Tutoriales</h2>
+            <p class="text-secondary mb-5">Demostraciones técnicas, guías y talleres sobre desarrollo y software.</p>
+
+            <div class="row g-4 text-start">
+                <!-- Video 1 -->
+                <div class="col-md-4">
+                    <div class="cyber-card card h-100 border-0 p-3">
+                        <div class="ratio ratio-16x9 mb-3">
+                            <iframe src="https://www.youtube.com/embed/pn4ZTSpeHwE?si=JXQN1LzlrZD5_ZSC" title="CRUD en .NET MAUI Parte 2" allowfullscreen></iframe>
+                        </div>
+                        <h5 class="card-title fw-bold text-info"><i class="fa-solid fa-play me-2"></i>CRUD en .NET MAUI - Parte 2</h5>
+                        <p class="card-text text-secondary small">Arquitectura de 3 capas con SQL Server y QuestPDF desde cero.</p>
+                    </div>
+                </div>
+                <!-- Video 2 -->
+                <div class="col-md-4">
+                    <div class="cyber-card card h-100 border-0 p-3">
+                        <div class="ratio ratio-16x9 mb-3">
+                            <iframe src="https://www.youtube.com/embed/V_CKAglsiQc?si=oIHwdgYAWlDro8M-" title="CRUD en .NET MAUI Parte 3" allowfullscreen></iframe>
+                        </div>
+                        <h5 class="card-title fw-bold text-info"><i class="fa-solid fa-play me-2"></i>CRUD en .NET MAUI - Parte 3 🔥</h5>
+                        <p class="card-text text-secondary small">Manejo de 5 tablas, relaciones de BD y generación de documentos PDF.</p>
+                    </div>
+                </div>
+                <!-- Video 3 -->
+                <div class="col-md-4">
+                    <div class="cyber-card card h-100 border-0 p-3">
+                        <div class="ratio ratio-16x9 mb-3">
+                            <iframe src="https://www.youtube.com/embed/5KaP4W0kVEQ?si=dfUe9vbNDDxOF1ym" title="IA Cyberpunk Gemini API" allowfullscreen></iframe>
+                        </div>
+                        <h5 class="card-title fw-bold text-info"><i class="fa-solid fa-play me-2"></i>IA Cyberpunk con Gemini API ⚡</h5>
+                        <p class="card-text text-secondary small">Construcción de interfaz cyberpunk con síntesis de voz y análisis de datos.</p>
+                    </div>
+                </div>
+
+                <!-- BLOQUES COMENTADOS PARA VIDEOS FUTUROS (HASTA 9 ADICIONALES) -->
+                <!--
+                <div class="col-md-4">
+                    <div class="cyber-card card h-100 border-0 p-3">
+                        <div class="ratio ratio-16x9 mb-3">
+                            <iframe src="https://www.youtube.com/embed/EXAMPLE1" title="Video 4" allowfullscreen></iframe>
+                        </div>
+                        <h5 class="card-title fw-bold text-info">🎬 Tutorial Avanzado #4</h5>
+                        <p class="card-text text-secondary small">Descripción del contenido del video aquí.</p>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN FORMULARIO DE CONTACTO -->
+    <section id="contacto" class="py-5 my-3">
+        <div class="container">
+            <h2 class="section-title text-center cyber-font">📧 Formulario de Contacto</h2>
+            <p class="text-secondary text-center mb-5">¿Tienes un proyecto o consulta en mente? ¡Escríbeme!</p>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="cyber-card p-4 p-md-5">
+                        <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold"><i class="fa-solid fa-user me-2 text-info"></i>Nombre Completo</label>
+                                    <input type="text" class="form-control bg-dark text-white border-secondary" required placeholder="Ej. Juan Pérez">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold"><i class="fa-solid fa-envelope me-2 text-info"></i>Correo Electrónico</label>
+                                    <input type="email" class="form-control bg-dark text-white border-secondary" required placeholder="nombre@correo.com">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold"><i class="fa-solid fa-phone me-2 text-info"></i>Teléfono</label>
+                                    <input type="tel" class="form-control bg-dark text-white border-secondary" placeholder="+1 809 000 0000">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold"><i class="fa-solid fa-comment-dots me-2 text-info"></i>Mensaje</label>
+                                    <textarea class="form-control bg-dark text-white border-secondary" rows="5" required placeholder="Escribe tu mensaje aquí..."></textarea>
+                                </div>
+                                <div class="col-12 text-center mt-4">
+                                    <button type="submit" class="btn btn-cyber px-5" style="background-color: #1e90ff;">
+                                        <i class="fa-solid fa-paper-plane me-2"></i>Enviar Mensaje
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="alertMsg" class="alert alert-success mt-4 d-none text-center" role="alert">
+                            ✅ Mensaje enviado correctamente. ¡Nos pondremos en contacto pronto!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-4 text-center mt-5">
+        <div class="container">
+            <div class="d-flex justify-content-center gap-3 mb-4 flex-wrap">
+                <a href="https://www.linkedin.com/in/juancitope%C3%B1a/" target="_blank" class="social-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://www.youtube.com/@JuancitoDevV" target="_blank" class="social-link" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://github.com/JUANCITOPENA" target="_blank" class="social-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="https://wa.me/18098706366" target="_blank" class="social-link" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/juancito.pena.v/" target="_blank" class="social-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.facebook.com/juancito.p.v" target="_blank" class="social-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://twitter.com/JuancitoPenaV" target="_blank" class="social-link" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+
+            <p class="mb-2 text-secondary">&copy; 2026 Feliz Reyes - Portafolio de Ingeniería & Desarrollo. Todos los derechos reservados.</p>
+            
+            <a href="#hero" class="btn btn-sm btn-outline-info rounded-pill mt-2">
+                <i class="fa-solid fa-arrow-up me-1"></i> Volver Arriba
+            </a>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        /* === MATRIX CANVAS ANIMATION === */
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&*+=-';
+        const fontSize = 14;
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = Array(columns).fill(1);
+
+        function drawMatrix() {
+            // Fondo semitransparente para efecto rastro
+            const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+            ctx.fillStyle = isDark ? 'rgba(5, 8, 17, 0.1)' : 'rgba(244, 247, 251, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = isDark ? '#00ff66' : '#16a34a';
+            ctx.font = fontSize + 'px Fira Code';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 45);
+
+        /* === DARK / LIGHT MODE TOGGLE === */
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-bs-theme', newTheme);
+            
+            if (newTheme === 'light') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+
+        /* === FILTROS DE PROYECTOS === */
+        function filterProjects(category) {
+            const items = document.querySelectorAll('.project-item');
+            const buttons = document.querySelectorAll('.btn-filter');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        /* === ENVÍO DE FORMULARIO DE CONTACTO === */
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const alertMsg = document.getElementById('alertMsg');
+            alertMsg.classList.remove('d-none');
+            
+            // Redirección o simulación de envío a correo
+            setTimeout(() => {
+                document.getElementById('contactForm').reset();
+            }, 1000);
+            
+            setTimeout(() => {
+                alertMsg.classList.add('d-none');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
